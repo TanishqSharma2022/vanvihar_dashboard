@@ -183,11 +183,15 @@ function AddQuestion() {
             <MultiSelect
               options={options}
               value={field.value.map((value) => ({ label: value, value }))}
-              onChange={(selected:string) => {
-                // Transform selected options to an array of strings
-                const selectedValues = selected.map((item:any) => item.value);
-                // Trigger field-level onChange
-                field.onChange(selectedValues);
+              // onChange={(selected:string) => {
+              //   // Transform selected options to an array of strings
+              //   const selectedValues = selected.map((item:any) => item.value);
+              //   // Trigger field-level onChange
+              //   field.onChange(selectedValues);
+              // }}
+              onChange={(selected: string[]) => {
+                // Trigger field-level onChange directly with the selected values
+                field.onChange(selected);
               }}
               labelledBy="Select"
             />
