@@ -6,7 +6,7 @@ const Navbar = () => {
     <div>
         <div className='h-[10vh] border p-4 flex justify-between items-center'>
           <div></div>
-          <ThemeToggle />
+          {/* <ThemeToggle /> */}
         </div>
     </div>
   )
