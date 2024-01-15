@@ -20,7 +20,7 @@ export default async function DemoPage() {
   const data = await getData()
 
   return (
-    <div className="container mx-auto  h-full w-[80vw] overflow-scroll">
+    <div className="container mx-auto  h-full md:w-[80vw] overflow-scroll">
  <div className="">
         <BreadCrumb items={breadcrumbItems} />
         <div className="flex justify-between py-2">

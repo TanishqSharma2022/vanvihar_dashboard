@@ -89,7 +89,7 @@ export function DataTable<TData, TValue>({
 
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}  className="max-w-[300px] min-w-[250px] overflow-scroll">
+                  <TableCell key={cell.id}  className=" md:max-w-[300px]  md:min-w-[250px] overflow-scroll">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

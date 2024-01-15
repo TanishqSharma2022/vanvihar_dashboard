@@ -483,6 +483,7 @@ import { Button } from '@/components/ui/button'
 import { FaPlus } from "react-icons/fa";
 import { CalendarDateRangePicker } from '@/components/ui/data-range-picker';
 import DemoPage from './questions/page';
+import { RecentUsers } from '@/components/recentUsers';
 
 const App = () => {
 
@@ -494,7 +495,7 @@ const App = () => {
 
   return (
     <div className='p-4'>
-        <div className="flex items-center justify-between space-y-2 px-12">
+        <div className="flex items-center justify-between space-y-2 md:px-12">
           <h2 className="text-3xl font-bold tracking-tight">
             Hi, Welcome back 👋
           </h2>
@@ -504,7 +505,7 @@ const App = () => {
         </div>
       
 
-
+    <RecentUsers />
 
     </div>
   )

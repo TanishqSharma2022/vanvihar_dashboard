@@ -135,13 +135,13 @@ function AddQuestion() {
 
 
   return (
-    <div className=" h-[80vh] p-4 md:p-12">
-      <ScrollArea>
-        <div className="w-full">
+    <div className="p-4 h-full  md:p-12">
+
+        <div className="w-full h-full overflow-scroll ">
           <Form {...form}>
             <form
               onSubmit={form.handleSubmit(onSubmit)}
-              className="grid grid-flow-dense grid-cols-1 auto-cols-max grid-rows-15 md:grid-cols-3 md:gap-6 justify-center "
+              className=" h-full overflow-scroll md:grid md:grid-cols-3 gap-6 justify-center "
             >
 
 
@@ -424,7 +424,7 @@ function AddQuestion() {
             </form>
           </Form>
         </div>
-      </ScrollArea>
+
     </div>
   );
 }

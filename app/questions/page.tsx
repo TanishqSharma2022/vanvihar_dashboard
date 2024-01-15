@@ -22,10 +22,10 @@ export default async function DemoPage() {
   const data = await getData();
 
   return (
-    <div className="container mx-auto w-[80vw] overflow-scroll h-full ">
+    <div className="container mx-auto md:w-[80vw] overflow-scroll h-full ">
       <div className="">
         <BreadCrumb items={breadcrumbItems} />
-        <div className="flex justify-between  mt-4">
+        <div className="flex justify-between md:flex-row gap-4 flex-col mt-4">
           <div>
             <h1 className="text-3xl font-bold">Questions ({data.length})</h1>
           </div>

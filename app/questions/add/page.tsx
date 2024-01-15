@@ -9,10 +9,10 @@ const breadcrumbItems = [{ title: "Question", link: "/questions" },{ title: "Add
 
 const Add = () => {
   return (
-    <div>
-    <div className='px-12 py-4 h-full overflow-scroll'>
+    <div className='h-full overflow-scroll'>
+    <div className='px-12 py-4 '>
         <BreadCrumb items={breadcrumbItems} />
-        <div className="flex justify-between  mt-4">
+        <div className="flex justify-between  mt-4 ">
           <div>
             <h1 className="text-3xl font-bold">Add a new Question!</h1>
           </div>
