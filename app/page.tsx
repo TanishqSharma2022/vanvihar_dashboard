@@ -32,8 +32,6 @@
 // import { Textarea } from "@/components/ui/textarea";
 // import { useRouter } from "next/navigation";
 
-
-
 // const formSchema = z.object({
 //   question: z.string().min(2, { message: "At least 2 characters" }),
 //   correctAnswer: z.string().min(2, { message: "At least 2 characters" }),
@@ -50,19 +48,6 @@
 //   tags: z.array(z.string())
 // });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 // function App() {
 //   const [selectedOptions, setSelectedOptions] = useState([]);
 //   const [loading, setLoading] = useState(false);
@@ -75,12 +60,8 @@
 //     {label:"Birds",value: "Birds"},
 //     {label:"Trees",value: "Trees"},
 //     {label:"Reptiles",value: "Reptiles"},
-//     {label:"Butterfly",value: "Butterfly"}    
+//     {label:"Butterfly",value: "Butterfly"}
 //   ]
-
-  
-
-
 
 //   const form = useForm<z.infer<typeof formSchema>>({
 //     resolver: zodResolver(formSchema),
@@ -131,7 +112,6 @@
 //         }
 //       );
 
-
 //     } catch (error) {
 //       console.error("Error adding question:", error);
 //       toast.error("Error Uploading Question");
@@ -141,7 +121,6 @@
 //       router.refresh()
 //     }
 //   };
-
 
 //   return (
 //     <div className="p-4 md:p-12">
@@ -155,7 +134,6 @@
 //             onSubmit={form.handleSubmit(onSubmit)}
 //             className="grid grid-cols-3 gap-12 p-12"
 //           >
-
 
 //             <FormField
 //               control={form.control}
@@ -184,12 +162,11 @@
 //               )}
 //             />
 
-
 //     <FormField
 //         control={form.control}
 //         name="tags"
 //         render={({ field}) => (
-    
+
 //         <div>
 //         <Label>Tags</Label>
 //           <MultiSelect
@@ -206,7 +183,6 @@
 // </div>
 //         )}
 //       />
-
 
 //             <FormField
 //               control={form.control}
@@ -262,7 +238,6 @@
 //               )}
 //             />
 
-
 //             {/* ATTACHMENTS */}
 //             <div className="grid gap-3">
 //               <FormField
@@ -308,8 +283,6 @@
 //               )}
 //               />
 
-
-
 //                 <FormField
 //                   control={form.control}
 //                   name="attachmentType"
@@ -337,14 +310,9 @@
 //                   )}
 //                 />
 
-
-
 // </>
 //               )}
 //             </div>
-
-
-
 
 //             <FormField
 //               control={form.control}
@@ -353,7 +321,7 @@
 //                 <FormItem>
 //                   <FormLabel>
 //                     <Label htmlFor="answerDescription">
-//                       Answer Description 
+//                       Answer Description
 //                     </Label>
 //                   </FormLabel>
 //                   <FormControl>
@@ -363,11 +331,6 @@
 //                 </FormItem>
 //               )}
 //             />
-         
-
-
-
-
 
 //             <FormField
 //               control={form.control}
@@ -387,14 +350,6 @@
 //               )}
 //             />
 
-
-
-
-
-
-
-
-         
 //             <FormField
 //               control={form.control}
 //               name="difficulty"
@@ -464,10 +419,9 @@
 
 // export default App;
 
-
-import React, { useEffect } from 'react'
-import AddQuestion from '@/components/addQuestion'
-import GetQuestion from '@/components/getQuestions'
+import React, { useEffect } from "react";
+import AddQuestion from "@/components/addQuestion";
+import GetQuestion from "@/components/getQuestions";
 
 import {
   Dialog,
@@ -477,39 +431,30 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog"
+} from "@/components/ui/dialog";
 
-import { Button } from '@/components/ui/button'
+import { Button } from "@/components/ui/button";
 import { FaPlus } from "react-icons/fa";
-import { CalendarDateRangePicker } from '@/components/ui/data-range-picker';
-import DemoPage from './questions/page';
-import { RecentUsers } from '@/components/recentUsers';
+import { CalendarDateRangePicker } from "@/components/ui/data-range-picker";
+import DemoPage from "./questions/page";
+import { RecentUsers } from "@/components/recentUsers";
+import { BestScorers } from "@/components/BestScorers";
 
 const App = () => {
-
-
-
-
-
-
-
   return (
-    <div className='p-4'>
-        <div className="flex items-center justify-between space-y-2 md:px-12">
-          <h2 className="text-3xl font-bold tracking-tight">
-            Hi, Welcome back 👋
-          </h2>
-          <div className="hidden md:flex items-center space-x-2">
-            <CalendarDateRangePicker />
-          </div>
+    <div className="p-4">
+      <div className="flex items-center justify-between space-y-2 md:px-12">
+        <h2 className="text-3xl font-bold tracking-tight">
+          Hi, Welcome back 👋
+        </h2>
+        <div className="hidden md:flex items-center space-x-2">
+          
         </div>
-      
+      </div>
 
-    <RecentUsers />
-
+      <BestScorers />
     </div>
-  )
-}
+  );
+};
 
-export default App
-
+export default App;

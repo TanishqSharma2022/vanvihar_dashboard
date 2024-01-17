@@ -27,9 +27,9 @@ export default function RootLayout({
       {/* <Providers session={session}> */}
       <Toaster />
       <Navbar />
-      <div className="flex h-screen overflow-hidden">
+      <div className="flex  overflow-scroll">
         <Sidebar />
-        <main className="w-full pt-16">{children}</main>
+        <main className="w-full pt-8">{children}</main>
       </div>
       {/* </Providers> */}
       </body>

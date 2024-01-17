@@ -24,10 +24,9 @@ export async function POST(req, res) {
       // Access imageUrl from the parsed data
       const { imageUrl } = data;
       // Upload image to Cloudinary
-      const cloudinaryResponse = await cloudinary.uploader
-        .upload(imageUrl)
-        
-        console.log(cloudinaryResponse)
+      const cloudinaryResponse = await cloudinary.uploader.upload(imageUrl);
+
+      console.log(cloudinaryResponse);
 
       return NextResponse.json({
         cloudinaryUrl: cloudinaryResponse.secure_url,
