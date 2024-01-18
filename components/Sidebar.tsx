@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils";
 export default function Sidebar() {
   return (
     <nav
-      className={cn(`relative hidden h-full border-r pt-16 md:block min-w-64 `)}
+      className={cn(`relative hidden h-full border-r pt-8 md:block min-w-64 `)}
     >
       <div className="space-y-4 py-4">
         <div className="px-3 py-2">

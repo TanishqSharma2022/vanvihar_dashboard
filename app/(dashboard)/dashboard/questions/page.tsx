@@ -32,14 +32,14 @@ export default function DemoPage() {
   }, []);
 
   return (
-    <div className="px-12 p-4  md:w-[80vw] h-full ">
+    <div className="px-12 p-4  md:w-[80vw] h-full overflow-scroll">
       <div className="">
         <BreadCrumb items={breadcrumbItems} />
         <div className="flex justify-between md:flex-row gap-4 flex-col mt-4">
           <div>
             <h1 className="text-3xl font-bold">Questions ({data?.length})</h1>
           </div>
-          <Link href="/questions/add">
+          <Link href="/dashboard/questions/add">
             <Button className="flex gap-2">
               <FaPlus />
               Add a new Question

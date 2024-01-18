@@ -5,11 +5,11 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import BreadCrumb from "@/components/breadcrumb";
 
-const breadcrumbItems = [{ title: "Question", link: "/questions" },{ title: "Add Question", link: "/ques/add" }];
+const breadcrumbItems = [{ title: "Question", link: "/dashboard/questions" },{ title: "Add Question", link: "/dashboard/questions/add" }];
 
 const Add = () => {
   return (
-    <div className='h-full overflow-scroll'>
+    <div className='h-[100vh] overflow-scroll'>
     <div className='px-12 py-4 '>
         <BreadCrumb items={breadcrumbItems} />
         <div className="flex justify-between  mt-4 ">

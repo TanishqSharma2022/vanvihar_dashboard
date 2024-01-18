@@ -29,7 +29,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
 import { ScrollArea } from "./ui/scroll-area";
 import { Separator } from "./ui/separator";
-
+import { options } from "@/constants/data";
 
 
 const formSchema = z.object({
@@ -57,18 +57,7 @@ const formSchema = z.object({
 
 function AddQuestion() {
   const [loading, setLoading] = useState(false);
-  const options = [
-    {label:"Elephant",value:"Elephant"},
-    {label:"Tiger",value: "Tiger"},
-    {label:"Mammals",value: "Mammals"},
-    {label:"Herbivore",value: "Herbivore"},
-    {label:"Carnivore",value: "Carnivore"},
-    {label:"Birds",value: "Birds"},
-    {label:"Trees",value: "Trees"},
-    {label:"Reptiles",value: "Reptiles"},
-    {label:"Butterfly",value: "Butterfly"}    
-  ]
-
+  
   
 
 
@@ -381,19 +370,26 @@ function AddQuestion() {
                   <Label>Tags</Label>
                   <MultiSelect
                     options={options}
-                    value={field.value.map((value) => ({
-                      label: value,
-                      value,
-                    }))}
-                    // onChange={(selected:string) => {
-                    //   // Transform selected options to an array of strings
-                    //   const selectedValues = selected.map((item:any) => item.value);
-                    //   // Trigger field-level onChange
-                    //   field.onChange(selectedValues);
+                    // value={field.value.map((value) => ({
+                    //   label: value,
+                    //   value: value,
+                    // }))}
+                    // // onChange={(selected:string) => {
+                    // //   // Transform selected options to an array of strings
+                    // //   const selectedValues = selected.map((item:any) => item.value);
+                    // //   // Trigger field-level onChange
+                    // //   field.onChange(selectedValues);
+                    // // }}
+                    // onChange={(selected: any[]) => {
+                    //   // Trigger field-level onChange directly with the selected values
+                    //   field.onChange(selected);
                     // }}
-                    onChange={(selected: string[]) => {
-                      // Trigger field-level onChange directly with the selected values
-                      field.onChange(selected);
+                    value={field.value.map((value) => ({ label: value, value }))}
+                    onChange={(selected: any[]) => {
+                      // Transform selected options to an array of strings
+                      const selectedValues = selected.map((item) => item.value);
+                      // Trigger field-level onChange
+                      field.onChange(selectedValues);
                     }}
                     labelledBy="Select"
                   />

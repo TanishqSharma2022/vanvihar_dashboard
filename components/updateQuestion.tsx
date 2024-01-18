@@ -151,7 +151,7 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
       setLoading(false);
       toast.success("Question updated successfully...");
     //   window.location.reload();
-      router.push("/questions");
+      router.push("/dashboard/questions");
     }
   };
 

@@ -1,7 +1,7 @@
 import UpdateQuestion from "@/components/updateQuestion";
 import BreadCrumb from "@/components/breadcrumb";
 
-const breadcrumbItems = [{ title: "Question", link: "/questions" },{ title: "Update Question", link: "/ques/update" }];
+const breadcrumbItems = [{ title: "Question", link: "/dashboard/questions" },{ title: "Update Question", link: "/dashboard/questions/update" }];
 
 export default function Update({ params }: { params: { id: string } }) {
     return <div className="">

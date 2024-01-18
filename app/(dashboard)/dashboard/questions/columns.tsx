@@ -191,10 +191,7 @@ export const columns: ColumnDef<Questions>[] = [
     accessorKey: "answerType",
     header: "Option Type",
   },
-  {
-    accessorKey: "answerChoices",
-    header: "Options",
-  },
+  
   {
     accessorKey: "tags",
     header: "Tags",
@@ -204,6 +201,11 @@ export const columns: ColumnDef<Questions>[] = [
     header: "Attachment",
   },
   {
+    accessorKey: "updatedAt",
+    header: "Updated At",
+  },
+  
+  {
     accessorKey: "answerDescription",
     header: "Answer Description",
   },
@@ -212,7 +214,8 @@ export const columns: ColumnDef<Questions>[] = [
     header: "Description Attachment",
   },
   {
-    accessorKey: "updatedAt",
-    header: "Updated At",
+    accessorKey: "answerChoices",
+    header: "Options",
   },
+  
 ];

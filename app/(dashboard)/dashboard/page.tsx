@@ -419,24 +419,8 @@
 
 // export default App;
 
-import React, { useEffect } from "react";
-import AddQuestion from "@/components/addQuestion";
-import GetQuestion from "@/components/getQuestions";
+import React from "react";
 
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
-
-import { Button } from "@/components/ui/button";
-import { FaPlus } from "react-icons/fa";
-import { CalendarDateRangePicker } from "@/components/ui/data-range-picker";
-import DemoPage from "./questions/page";
 import { RecentUsers } from "@/components/recentUsers";
 import { BestScorers } from "@/components/BestScorers";
 
@@ -448,7 +432,7 @@ const App = () => {
           Hi, Welcome back 👋
         </h2>
         <div className="hidden md:flex items-center space-x-2">
-          
+
         </div>
       </div>
 
