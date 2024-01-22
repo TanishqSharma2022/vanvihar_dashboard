@@ -14,11 +14,13 @@ import { signIn } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import * as z from "zod";
+import GoogleSignInButton from "../google-signin";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
-  password: z.string().min(6, { message: "Password must be at least 6 characters" }),
+  password: z.string({ required_error: 'Passoword is required' }).min(6, { message: "Password must be at least 6 characters" }),
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -28,8 +30,8 @@ export default function UserAuthForm() {
   const callbackUrl = searchParams.get("callbackUrl");
   const [loading, setLoading] = useState(false);
   const defaultValues = {
-    email: "demo@gmail.com",
-    password: "123456"
+    email: "vanvihar@gmail.com",
+    password: "1234567890"
   };
   const form = useForm<UserFormValue>({
     resolver: zodResolver(formSchema),
@@ -37,11 +39,22 @@ export default function UserAuthForm() {
   });
 
   const onSubmit = async (data: UserFormValue) => {
-    await signIn("credentials", {
+    const response = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      callbackUrl: callbackUrl ?? "/dashboard",
+      // callbackUrl:  "/dashboard",
+      redirect: false
     });
+
+
+
+    if (response?.error) {
+      // Handle error
+      toast.error("Wrong Email or Password");
+    } else{
+        window.location.replace('/dashboard')
+    }
+    
   };
 
   return (
@@ -105,7 +118,12 @@ export default function UserAuthForm() {
             Or continue with
           </span>
         </div>
+
+
+
       </div>
+      <GoogleSignInButton />
+
 
     </>
   );

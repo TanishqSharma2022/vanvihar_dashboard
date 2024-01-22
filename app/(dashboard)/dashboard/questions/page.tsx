@@ -5,7 +5,7 @@ import { DataTable } from "./DataTable";
 import { FaPlus } from "react-icons/fa";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import BreadCrumb from "@/components/breadcrumb";
+import BreadCrumb from "@/components/ui/breadcrumb";
 import { useEffect, useState } from "react";
 
 const breadcrumbItems = [{ title: "Questions", link: "/ques" }];
@@ -32,7 +32,8 @@ export default function DemoPage() {
   }, []);
 
   return (
-    <div className="px-12 p-4  md:w-[80vw] h-full overflow-scroll">
+    <div className="w-[80vw] overflow-x-scroll">
+    <div className="px-12 p-4  md:w-full h-full overflow-scroll">
       <div className="">
         <BreadCrumb items={breadcrumbItems} />
         <div className="flex justify-between md:flex-row gap-4 flex-col mt-4">
@@ -47,7 +48,13 @@ export default function DemoPage() {
           </Link>
         </div>
       </div>
-      {data && <DataTable columns={columns} data={data} />}
+      <div className=" overflow-scroll">
+      {
+      data && 
+      <DataTable columns={columns} data={data} />
+      }
+      </div>
+    </div>
     </div>
   );
 }

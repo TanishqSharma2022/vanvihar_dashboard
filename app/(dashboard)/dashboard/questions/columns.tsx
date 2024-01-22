@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Link from "next/link";
 
-import DeleteQuestion from "@/components/deleteQuestion";
+import DeleteQuestion from "@/components/actions/deleteQuestion";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -187,6 +187,7 @@ export const columns: ColumnDef<Questions>[] = [
       );
     },
   },
+
   {
     accessorKey: "answerType",
     header: "Option Type",

@@ -49,7 +49,7 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div>
+    <div className="w-full ">
       <div className="flex items-center py-4">
         <Input
           placeholder="Filter Questions..."
@@ -62,14 +62,14 @@ export function DataTable<TData, TValue>({
           className="max-w-sm"
         />
       </div>
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
+      <div className="rounded-md  w-full relative overflow-y-scroll Flipped">
+        <Table className="border rounded-xl Flipped">
+          <TableHeader >
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
                 {headerGroup.headers.map((header) => {
                   return (
-                    <TableHead key={header.id}>
+                    <TableHead key={header.id} >
                       {header.isPlaceholder
                         ? null
                         : flexRender(
@@ -88,6 +88,7 @@ export function DataTable<TData, TValue>({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  className="w-full relative overflow-x-scroll"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
@@ -106,7 +107,7 @@ export function DataTable<TData, TValue>({
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="h-24  text-center"
+                  className="h-24 text-center"
                 >
                   No results.
                 </TableCell>

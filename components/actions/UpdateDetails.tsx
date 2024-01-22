@@ -18,17 +18,16 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { MultiSelect } from "react-multi-select-component";
 import { useRouter } from "next/navigation";
-import { ScrollArea } from "./ui/scroll-area";
-import { Separator } from "./ui/separator";
+import { ScrollArea } from "../ui/scroll-area";
+import { Separator } from "../ui/separator";
 import { options } from "@/constants/data";
 
 const formSchema = z.object({
-  questionCount: z.number(),
-  marksEasy: z.number(),
-  marksMedium: z.number(),
-  marksHard: z.number(),
+  questionCount: z.coerce.number(),
+  marksEasy: z.coerce.number(),
+  marksMedium: z.coerce.number(),
+  marksHard: z.coerce.number(),
   tags: z.array(z.string()),
-
 });
 
 interface QuestionDetails {
@@ -183,7 +182,7 @@ function UpdateQuestionDetails() {
                           <Label htmlFor="question">Question Count</Label>
                         </FormLabel>
                         <FormControl>
-                          <Input placeholder="Question Count" {...field} />
+                          <Input  placeholder="Question Count" {...field} type="text" value={Number(field.value)} />
                         </FormControl>
 
                         <FormMessage />
@@ -211,7 +210,7 @@ function UpdateQuestionDetails() {
                           <Label htmlFor="marksEasy">Easy Questions</Label>
                         </FormLabel>
                         <FormControl>
-                          <Input placeholder="0" {...field} />
+                          <Input type="text" placeholder="0" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -226,7 +225,7 @@ function UpdateQuestionDetails() {
                           <Label htmlFor="marksMedium">Medium Questions</Label>
                         </FormLabel>
                         <FormControl>
-                          <Input placeholder="0" {...field} />
+                          <Input type="text" placeholder="0" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -239,9 +238,9 @@ function UpdateQuestionDetails() {
                       <FormItem>
                         <FormLabel>
                           <Label htmlFor="marksHard">Hard Questions</Label>
-                        </FormLabel>
+                        </FormLabel> 
                         <FormControl>
-                          <Input placeholder="0" {...field} />
+                          <Input type="text" placeholder="0" {...field} onChange={field.onChange} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

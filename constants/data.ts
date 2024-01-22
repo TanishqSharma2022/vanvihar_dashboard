@@ -1,4 +1,4 @@
-import { Icons } from "@/components/icons";
+import { Icons } from "@/components/ui/icons";
 
 import { NavItem, SidebarNavItem } from "@/types";
 
@@ -27,16 +27,9 @@ export const navItems: NavItem[] = [
     icon: "profile",
     label: "question details",
   },
-
-  {
-    title: "Login",
-    href: "/",
-    icon: "login",
-    label: "login",
-  },
 ];
 
-export const options = [
+export const options: Array<{ label: string; value: string }> = [
   { label: "Elephant", value: "Elephant" },
   { label: "Tiger", value: "Tiger" },
   { label: "Mammals", value: "Mammals" },
@@ -52,7 +45,6 @@ export const options = [
     { label: "Panda", value: "Panda" },
     { label: "Hippopotamus", value: "Hippopotamus" },
     { label: "Reindeer", value: "Reindeer" },
-
     { label: "Zebra", value: "Zebra" },
     { label: "Gorilla", value: "Gorilla" },
     { label: "Penguin", value: "Penguin" },

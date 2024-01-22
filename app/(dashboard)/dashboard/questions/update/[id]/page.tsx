@@ -1,5 +1,5 @@
-import UpdateQuestion from "@/components/updateQuestion";
-import BreadCrumb from "@/components/breadcrumb";
+import UpdateQuestion from "@/components/actions/updateQuestion";
+import BreadCrumb from "@/components/ui/breadcrumb";
 
 const breadcrumbItems = [{ title: "Question", link: "/dashboard/questions" },{ title: "Update Question", link: "/dashboard/questions/update" }];
 

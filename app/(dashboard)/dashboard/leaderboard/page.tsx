@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { LeaderBoard, columns } from "./columns";
 import { DataTable } from "./DataTable";
 
-import BreadCrumb from "@/components/breadcrumb";
+import BreadCrumb from "@/components/ui/breadcrumb";
 const breadcrumbItems = [{ title: "Leaderboard", link: "/leaderboard" }];
 
 async function getData(): Promise<LeaderBoard[]> {
@@ -29,7 +29,7 @@ export default function DemoPage() {
   }, []);
 
   return (
-    <div className="container mx-auto  h-full md:w-[80vw] overflow-scroll">
+    <div className=" container mx-auto  h-full md:w-[80vw] overflow-scroll">
       <div className="">
         <BreadCrumb items={breadcrumbItems} />
         <div className="flex justify-between py-2">

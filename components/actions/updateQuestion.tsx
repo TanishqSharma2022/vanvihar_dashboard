@@ -27,8 +27,8 @@ import toast from "react-hot-toast";
 import { MultiSelect } from "react-multi-select-component";
 import { Textarea } from "@/components/ui/textarea";
 import { useRouter } from "next/navigation";
-import { ScrollArea } from "./ui/scroll-area";
-import { Separator } from "./ui/separator";
+import { ScrollArea } from "../ui/scroll-area";
+import { Separator } from "../ui/separator";
 import { options } from "@/constants/data";
 
 const formSchema = z.object({
@@ -42,8 +42,8 @@ const formSchema = z.object({
     .min(2, { message: "At least 2 characters" }),
   attachment: z.string().optional(),
   answerDescription: z.string(),
-  answerType: z.string().default("text"),
-  difficulty: z.string().default("easy"),
+  answerType: z.string().default(""),
+  difficulty: z.string().default(""),
   tags: z.array(z.string()),
 });
 
@@ -126,6 +126,7 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
         `https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizQuestion/updateQuestion?id=${params.id}`,
         {
           method: "PATCH",
+          
           body: JSON.stringify({"data":{
             question: values.question,
             correctAnswer: values.correctAnswer,
@@ -205,8 +206,8 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
                               <SelectValue placeholder="Option Type (TEXT / IMAGE)" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="image" onClick={()=>setIsText(false)}>Image</SelectItem>
-                              <SelectItem value="text" onClick={()=>{setIsText(true); console.log("text")}}>Text</SelectItem>
+                              <SelectItem value="image" >Image</SelectItem>
+                              <SelectItem value="text" >Text</SelectItem>
                             </SelectContent>
                           </Select_shad>
                         </FormControl>

@@ -24,10 +24,11 @@ export function BestScorers() {
         getUsers()
     }, [])
   return (
-    <div className="space-y-8 md:max-w-[400px] w-auto border rounded-xl p-6 shadow-lg mt-6 md:m-6">
-<h1 className="font-bold text-xl">Best Scorers</h1>
+    <div className="space-y-8  rounded-xl  m-4">
+{/* <h1 className="font-bold text-xl">Best Scorers</h1> */}
     {users.map((user:User, index)=>(
-            <div className="flex items-center" key={index}>
+        index <5 &&
+            <div className="flex items-center justify-between" key={index}>
 
             <Avatar className="h-9 w-9">
             <AvatarImage src={user.displayPicture} alt="Avatar" />

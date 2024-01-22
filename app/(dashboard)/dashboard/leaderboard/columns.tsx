@@ -11,10 +11,7 @@ export type LeaderBoard = {
 };
 
 export const columns: ColumnDef<LeaderBoard>[] = [
-  {
-    accessorKey: "_id",
-    header: "Id",
-  },
+
   {
     accessorKey: "name",
     header: "Name",
@@ -30,6 +27,20 @@ export const columns: ColumnDef<LeaderBoard>[] = [
   {
     accessorKey: "timeTaken",
     header: "Time Taken",
+    cell: ({ row }) => {
+      const amount = parseFloat(row.getValue("timeTaken"))
+      const seconds = amount/1000
+      if(seconds > 60){
+        const minutes = seconds/60
+        const second = seconds%60
+        const formatted = `${minutes.toFixed(0)} m ${second.toFixed(0)} s`
+        return <div className="text-right font-medium">{formatted}</div>
+        
+      }
+      const formatted = `${seconds.toFixed(0)} s`
+ 
+      return <div className="text-right font-medium">{formatted}</div>
+    },
   },
   {
     accessorKey: "displayPicture",
