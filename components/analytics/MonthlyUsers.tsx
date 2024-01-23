@@ -19,7 +19,7 @@ export interface User {
 const apiUrl = 'https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizResult/getMonthlyPlayers';
 
 interface DailyUsers {
-  month: string;
+  mon: string;
   users: number;
 }
 
@@ -66,8 +66,8 @@ interface LastWeekData {
 
 
 interface MonthlyUserData {
-    name: string; // Month name
-    total: number; // Number of users
+    mon: string; // Month name
+    users: number; // Number of users
   }
   const getMonthName = (month: number): string => {
     const monthNames = [
@@ -108,8 +108,8 @@ const MonthlyUsers = () => {
                 const result = await response.json();
                 // Convert the result to the desired format
                 const formattedData: MonthlyUserData = {
-                  name: getMonthName(month),
-                  total: result.data.length || 0, // Use 0 if the result is falsy
+                  mon: getMonthName(month),
+                  users: result.data.length || 0, // Use 0 if the result is falsy
                 };
     
                 allMonthsData.push(formattedData);
@@ -128,12 +128,11 @@ const MonthlyUsers = () => {
         fetchData();
       }, []);
 
-      console.log(monthlyUserData)
 
   return (
     <>
         {monthlyUserData.length !== 0 &&  
-            <BarChartAnalytics data={monthlyUserData} />
+            <BarChartAnalytics  data={monthlyUserData} />
     }
       {monthlyUserData.length === 0 &&  
         <div className="flex flex-col items-center gap-4 justify-center w-full h-[200px]">

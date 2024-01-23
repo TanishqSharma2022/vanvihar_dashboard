@@ -1,6 +1,6 @@
 "use client";
 
-import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, Label, Legend, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 // const data = [
 //   {
@@ -56,23 +56,28 @@ import { Bar, BarChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recha
 export function BarChartAnalytics({data}) {
   return (
     <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data}>
+      <BarChart data={data} height={400}>
         <XAxis
-          dataKey="name"
+          dataKey={Object.keys(data[0])[0]}
           stroke="#888888"
           fontSize={12}
           tickLine={false}
-          axisLine={false}
-        />
+          axisLine={true}
+        >
+          </XAxis>
         <YAxis
           stroke="#888888"
           fontSize={12}
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => `${value}`}
-        />
+        >
+          <Label value={Object.keys(data[0])[0]} offset={-15} angle={-90} position="left" />
+
+        </YAxis>
         <Tooltip />
-        <Bar dataKey="total" fill="#214D3C" radius={[4, 4, 0, 0]} />
+        {/* <Legend /> */}
+        <Bar dataKey="users" fill="#214D3C" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );

@@ -447,7 +447,7 @@ const App = () => {
 
           <BestScorers />
         </Card>
-        <Card className="col-span-4 shadow-lg ">
+        <Card className="col-span-4 shadow-lg h-[500px]">
           <CardHeader>
             <CardTitle>Monthly Users</CardTitle>
           </CardHeader>

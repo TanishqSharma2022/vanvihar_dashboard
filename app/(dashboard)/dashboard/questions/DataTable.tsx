@@ -44,8 +44,26 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
-  const [columnVisibility, setColumnVisibility] =
-    React.useState<VisibilityState>({})
+
+  
+  const [columnVisibility, setColumnVisibility] = React.useState<VisibilityState>({
+    actions: true,
+    _id: false,
+    question: true,
+    answer: true,
+    difficulty: true,
+    answerType: true,
+    answerChoices: false,
+    tags: true,
+    hasAttachment: false,
+    attachment: false,
+    createdAt: false,
+    updatedAt: false,
+    answerDescription: false,
+    descriptionAttachment: false,
+    attempts: true,
+    correctAttempts: true,
+  });
   const table = useReactTable({
     data,
     columns,
@@ -59,17 +77,11 @@ export function DataTable<TData, TValue>({
     state: {
       sorting,
       columnFilters,
-      columnVisibility
+      columnVisibility 
     },
 
   });
 
-  const [columnVisibile, setColumnVisibile] =
-  React.useState<VisibilityState>({
-    question: true,        // Default to true for columns to be shown by default
-    correctAnswer: true,   // Default to true for columns to be shown by default
-    // Add more columns and set their default visibility
-  });
 
 
 
@@ -103,24 +115,14 @@ export function DataTable<TData, TValue>({
                 (column) => column.getCanHide()
               )
               .map((column) => {
-
-                const isVisibleByDefault = columnVisibile[column.id] ?? false;
-
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
                     className="capitalize"
-                    checked={isVisibleByDefault || column.getIsVisible()}
-                    // onCheckedChange={(value) =>
-                    //   column.toggleVisibility(!!value)
-                    // }
-                    onCheckedChange={(value) => {
-                      column.toggleVisibility(!!value);
-                      setColumnVisibility((prev) => ({
-                        ...prev,
-                        [column.id]: !!value,
-                      }));
-                    }}
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>
@@ -149,6 +151,7 @@ export function DataTable<TData, TValue>({
       </div>
       </div>
       <div className="rounded-md  w-full relative overflow-y-scroll Flipped">
+        
         <Table className=" rounded-xl Flipped">
           <TableHeader >
             {table.getHeaderGroups().map((headerGroup) => (
@@ -201,6 +204,8 @@ export function DataTable<TData, TValue>({
             )}
           </TableBody>
         </Table>
+        
+
       </div>
 
     </div>

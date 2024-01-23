@@ -19,8 +19,8 @@ export interface User {
 const apiUrl = 'https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizResult/getDailyPlayers';
 
 interface DailyUsers {
-  name: string;
-  total: number;
+  day: string;
+  users: number;
 }
 
 async function fetchDailyUsers(date: string): Promise<number> {
@@ -67,7 +67,7 @@ async function fetchLastWeekData(): Promise<LastWeekData> {
 
 
 const DailyUsers = () => {
-    const [users, setUsers] = useState<{ name: string; total: number }[]>([]);
+    const [users, setUsers] = useState<{ day: string; users: number }[]>([]);
 
     useEffect(()=>{
         async function getUsers() {
@@ -75,7 +75,7 @@ const DailyUsers = () => {
               const result: Record<string, number> = await fetchLastWeekData();
               
               // You can now use the result as needed, for example, store it in state or perform other operations
-              const us: { name: string; total: number }[] = Object.entries(result).map(([name, total]) => ({ name, total }));
+              const us: { day: string; users: number }[] = Object.entries(result).map(([day, users]) => ({ day, users }));
           
               setUsers(us);
             } catch (error) {
@@ -91,7 +91,7 @@ const DailyUsers = () => {
   return (
     <>
         {users.length !== 0 &&  
-            <BarChartAnalytics data={users} />
+            <BarChartAnalytics  data={users} />
         }
         {users.length === 0 &&  
         <div className="flex flex-col gap-4 items-center justify-center w-full h-[200px]">

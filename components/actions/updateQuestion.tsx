@@ -261,8 +261,8 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
                     
                    {!isText &&  
                    <>
-                   as
-                    {/* <FormField
+                   
+                    <FormField
                       control={form.control}
                       name="hasAttachment"
                       render={({ field }) => (
@@ -337,7 +337,7 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
                           )}
                         />
                       </>
-                    )} */}
+                    )}
                     </>
                     }
                   </div>

@@ -132,6 +132,11 @@ export const columns: ColumnDef<Questions>[] = [
     },
   },
   {
+    accessorKey: "_id",
+    header: "Question ID",
+
+  },
+  {
     id: "index",
     header: "S. No.",
     cell: ({ row }) => {
@@ -141,6 +146,7 @@ export const columns: ColumnDef<Questions>[] = [
 
   {
     accessorKey: "createdAt",
+    
     header: ({ column }) => {
       return (
         <Button

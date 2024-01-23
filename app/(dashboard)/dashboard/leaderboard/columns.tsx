@@ -45,5 +45,17 @@ export const columns: ColumnDef<LeaderBoard>[] = [
   {
     accessorKey: "displayPicture",
     header: "Display Picture",
+    cell: ({ row }) => {
+      return (
+        <div className="text-right font-medium flex items-center  ">
+          <img
+            src={row.original.displayPicture}
+            alt={row.original.displayPicture}
+            className="w-8 h-8 rounded-full object-cover shadow-lg"
+          />
+        </div>
+      );
+    },
+  
   },
 ];
