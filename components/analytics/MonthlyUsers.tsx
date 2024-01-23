@@ -135,8 +135,10 @@ const MonthlyUsers = () => {
         {monthlyUserData.length !== 0 &&  
             <BarChartAnalytics data={monthlyUserData} />
     }
-      {!monthlyUserData &&  
+      {monthlyUserData.length === 0 &&  
+        <div className="flex items-center justify-center w-full h-[200px]">
             <SyncLoader color="#214D3C" />
+            </div>
         }
     </>
   );

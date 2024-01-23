@@ -67,18 +67,24 @@ async function fetchLastWeekData(): Promise<LastWeekData> {
 
 
 const DailyUsers = () => {
-    const [users, setUsers] = useState([])
+    const [users, setUsers] = useState<{ name: string; total: number }[]>([]);
+
     useEffect(()=>{
-        async function getUsers(){
-        await fetchLastWeekData().then((result) => {
-            // You can now use the result as needed, for example, store it in state or perform other operations
-            const us  = Object.entries(result).map(([name, total]) => ({ name, total }));
-
-            setUsers(us)
-
-          });
-        }
-        getUsers()
+        async function getUsers() {
+            try {
+              const result: Record<string, number> = await fetchLastWeekData();
+              
+              // You can now use the result as needed, for example, store it in state or perform other operations
+              const us: { name: string; total: number }[] = Object.entries(result).map(([name, total]) => ({ name, total }));
+          
+              setUsers(us);
+            } catch (error) {
+              console.error('Error fetching last week data:', error);
+            }
+          }
+          
+          getUsers();
+          
     }, [])
 
 
@@ -87,8 +93,10 @@ const DailyUsers = () => {
         {users.length !== 0 &&  
             <BarChartAnalytics data={users} />
         }
-        {!users &&  
+        {users.length === 0 &&  
+        <div className="flex items-center justify-center w-full h-[200px]">
             <SyncLoader color="#214D3C" />
+            </div>
         }
     </>
   );
