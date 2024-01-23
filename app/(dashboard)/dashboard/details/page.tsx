@@ -14,7 +14,7 @@ export default function QuestionDetails({ params }: { params: { id: string } }) 
           </div>
         </div>
       </div>
-  <UpdateQuestionDetails />
+      <UpdateQuestionDetails />
         
         </div>
 }

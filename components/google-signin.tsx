@@ -42,7 +42,7 @@ export default function GoogleSignInButton() {
 
   return (
     <Button
-      className="w-full text-[#214D3C]"
+      className="w-full text-[#214D3C] hover:bg-[#d4f7e5]/70"
       variant="outline"
       type="button"
       disabled={loading}

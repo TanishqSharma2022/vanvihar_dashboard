@@ -1,6 +1,6 @@
 "use client";
 
-import { Overview } from "@/components/analytics/barChart";
+import { BarChartAnalytics } from "@/components/analytics/barChart";
 // import * as React from "react";
 // import { zodResolver } from "@hookform/resolvers/zod";
 // import { Controller, UseFormRegister, useForm } from "react-hook-form";
@@ -427,6 +427,9 @@ import { RecentUsers } from "@/components/analytics/recentUsers";
 import { BestScorers } from "@/components/analytics/BestScorers";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
+import DailyUsers from "@/components/analytics/DailyUsers";
+import MonthlyUsers from "@/components/analytics/MonthlyUsers";
+
 const App = () => {
   return (
     <div className="px-2 md:p-4">
@@ -446,10 +449,19 @@ const App = () => {
         </Card>
         <Card className="col-span-4 shadow-lg ">
           <CardHeader>
-            <CardTitle>Yearly Users</CardTitle>
+            <CardTitle>Monthly Users</CardTitle>
           </CardHeader>
           <CardContent className="pl-2">
-            <Overview />
+            <MonthlyUsers />
+          </CardContent>
+        </Card>
+
+        <Card className="col-span-3 shadow-lg ">
+          <CardHeader>
+            <CardTitle>Daily Users</CardTitle>
+          </CardHeader>
+          <CardContent className="pl-2">
+            <DailyUsers />
           </CardContent>
         </Card>
       </div>

@@ -61,7 +61,17 @@ export function DataTable<TData, TValue>({
       columnFilters,
       columnVisibility
     },
+
   });
+
+  const [columnVisibile, setColumnVisibile] =
+  React.useState<VisibilityState>({
+    question: true,        // Default to true for columns to be shown by default
+    correctAnswer: true,   // Default to true for columns to be shown by default
+    // Add more columns and set their default visibility
+  });
+
+
 
   return (
     <div className="w-full ">
@@ -93,14 +103,24 @@ export function DataTable<TData, TValue>({
                 (column) => column.getCanHide()
               )
               .map((column) => {
+
+                const isVisibleByDefault = columnVisibile[column.id] ?? false;
+
                 return (
                   <DropdownMenuCheckboxItem
                     key={column.id}
                     className="capitalize"
-                    checked={column.getIsVisible()}
-                    onCheckedChange={(value) =>
-                      column.toggleVisibility(!!value)
-                    }
+                    checked={isVisibleByDefault || column.getIsVisible()}
+                    // onCheckedChange={(value) =>
+                    //   column.toggleVisibility(!!value)
+                    // }
+                    onCheckedChange={(value) => {
+                      column.toggleVisibility(!!value);
+                      setColumnVisibility((prev) => ({
+                        ...prev,
+                        [column.id]: !!value,
+                      }));
+                    }}
                   >
                     {column.id}
                   </DropdownMenuCheckboxItem>

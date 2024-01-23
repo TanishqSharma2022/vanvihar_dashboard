@@ -50,18 +50,34 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       // Do different verification for other providers that don't have `email_verified`
    
-        if (account?.provider === "google" && profile?.email === "tanishq22@iiserb.ac.in" || profile?.email === "vanviharwildlifeweek@gmail.com" || profile?.email === "sujit@iiserb.ac.in" || profile?.email === "moonlab314@gmail.com") {
-          return true
+        // if (account?.provider === "google" && profile?.email === "tanishq22@iiserb.ac.in" ) {
+        //   return true
+        // }
+        // if (account?.provider === "google" && profile?.email === "sujit@iiserb.ac.in" ) {
+        //   return true
+        // }
+        // if (account?.provider === "google" && profile?.email === "moonlab314@gmail.com" ) {
+        //   return true
+        // }
+
+        if (account?.provider === "google" && profile?.email === "tanishq22@iiserb.ac.in") {
+          return true;
         }
-
-        if(user){
-          return true
+        if (account?.provider === "google" && profile?.email === "sujit@iiserb.ac.in") {
+          return true;
         }
-
-        return false
-        
-
+        if (account?.provider === "google" && profile?.email === "moonlab314@gmail.com") {
+          return true;
+        }
     
+        // Allow sign-in for email/password provider if user exists
+        if (account?.provider === "credentials" && user) {
+          return true;
+        }
+    
+        // Deny sign-in for all other cases
+        return false;
+      
       }
     ,
   },

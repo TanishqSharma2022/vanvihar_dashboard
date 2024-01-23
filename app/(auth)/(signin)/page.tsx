@@ -23,20 +23,28 @@ export default function AuthenticationPage() {
         Login
       </Link>
       <div className="relative hidden h-full flex-col bg-muted p-10 text-white dark:border-r lg:flex">
-        <div className="absolute inset-0 bg-[#214D3C]" />
+        <div className="absolute inset-0 bg-[#214D3C] flex items-center justify-center" >
+
+          {/* <div className="bg-fill bg-[url('/image.png')] h-[500px] w-[500px] border "></div> */}
+          <img
+            src={"/image.png"}
+            className="h-[400px] rounded-full shadow-lg shadow-[#35614a] bg-[#d4f7e5] "
+          />
+        </div>
         <div className="relative z-20 flex items-center text-lg font-medium gap-2">
           <img
-            src={"/vvlogo.jpeg"}
-            className="h-8 w-8 rounded-full shadow-lg"
+            src={"/image.png"}
+            className="h-12 w-12 rounded-full shadow-lg bg-[#d4f7e5] "
           />
           VAN VIHAR
         </div>
+
         <div className="relative z-20 mt-auto">
           <blockquote className="space-y-2">
             <p className="text-lg">
-              &ldquo;This dashboard is developed by ....&rdquo;
+              &ldquo;This dashboard is developed by Team ThunderByte&rdquo;
             </p>
-            <footer className="text-sm">Sofia Davis</footer>
+            <footer className="text-sm">Tanishq Sharma</footer>
           </blockquote>
         </div>
       </div>
