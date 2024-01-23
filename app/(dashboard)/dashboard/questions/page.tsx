@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import BreadCrumb from "@/components/ui/breadcrumb";
 import { useEffect, useState } from "react";
+import { SyncLoader } from "react-spinners";
 
 const breadcrumbItems = [{ title: "Questions", link: "/ques" }];
 
@@ -53,6 +54,13 @@ export default function DemoPage() {
       data && 
       <DataTable columns={columns} data={data} />
       }
+      {!data &&
+      <>
+        <div className="w-full h-[80vh] flex flex-col gap-4 items-center justify-center">
+          <SyncLoader color="#214D3C" />
+          <h1 className="font-semibold text-[#214D3C]">Loading the Questions....</h1>
+        </div>
+      </>}
       </div>
     </div>
     </div>

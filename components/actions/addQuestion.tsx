@@ -49,17 +49,7 @@ const formSchema = z.object({
 });
 
 function AddQuestion() {
-  const [answerArray, setAnswerArray] = useState([''])
-  // const handleAddOption = (value:string) => {
-  //   setAnswerArray([...answerArray, value]);
-  // };
-
-  // // Function to handle removing an option
-  // const handleRemoveOption = (index:number) => {
-  //   const newArray = [...answerArray];
-  //   newArray.splice(index, 1);
-  //   setAnswerArray(newArray);
-  // };
+  
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -83,31 +73,31 @@ function AddQuestion() {
 
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log(values);
+    // console.log(JSON.stringify(values));
     try {
       setLoading(true);
-      // const response = await fetch(
-      //   "https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizQuestion/add",
-      //   {
-      //     method: "POST",
-      //     body: JSON.stringify({
-      //       question: values.question,
-      //       correctAnswer: values.correctAnswer,
-      //       answerChoices: values.answerChoices,
-      //       hasAttachment: values.hasAttachment,
-      //       attachmentType: values.attachmentType,
-      //       descriptionAttachment: values.descriptionAttachment,
-      //       attachment: values.attachment,
-      //       answerType: values.answerType,
-      //       answerDescription: values.answerDescription,
-      //       difficulty: values.difficulty,
-      //       tags: values.tags
-      //     }),
-      //     headers: {
-      //       "Content-type": "application/json",
-      //     },
-      //   }
-      // );
+      const response = await fetch(
+        "https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizQuestion/add",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            question: values.question,
+            correctAnswer: values.correctAnswer,
+            answerChoices: values.answerChoices,
+            hasAttachment: values.hasAttachment,
+            attachmentType: values.attachmentType,
+            descriptionAttachment: values.descriptionAttachment,
+            attachment: values.attachment,
+            answerType: values.answerType,
+            answerDescription: values.answerDescription,
+            difficulty: values.difficulty,
+            tags: values.tags
+          }),
+          headers: {
+            "Content-type": "application/json",
+          },
+        }
+      );
     } catch (error) {
       console.error("Error adding question:", error);
       toast.error("Error Uploading Question");

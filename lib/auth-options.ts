@@ -50,11 +50,11 @@ export const authOptions: NextAuthOptions = {
     async signIn({ user, account, profile, email, credentials }) {
       // Do different verification for other providers that don't have `email_verified`
    
-        if (account?.provider === "google" && profile?.email === "tanishq22@iiserb.ac.in") {
+        if (account?.provider === "google" && profile?.email === "tanishq22@iiserb.ac.in" || profile?.email === "vanviharwildlifeweek@gmail.com" || profile?.email === "sujit@iiserb.ac.in" || profile?.email === "moonlab314@gmail.com") {
           return true
         }
 
-        if(account?.provider === "credentials" && user){
+        if(user){
           return true
         }
 

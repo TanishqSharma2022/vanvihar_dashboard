@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { DialogTrigger } from "@radix-ui/react-dialog";
 import toast from "react-hot-toast";
+import { useState } from "react";
 
 export type Questions = {
   _id: string;
@@ -128,6 +129,13 @@ export const columns: ColumnDef<Questions>[] = [
           </AlertDialogContent>
         </AlertDialog>
       );
+    },
+  },
+  {
+    id: "index",
+    header: "S. No.",
+    cell: ({ row }) => {
+      return(row.index +1 )
     },
   },
 

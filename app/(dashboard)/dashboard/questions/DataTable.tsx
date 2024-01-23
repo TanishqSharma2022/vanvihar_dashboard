@@ -7,6 +7,7 @@ import {
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
+  VisibilityState,
   getPaginationRowModel,
   getSortedRowModel,
   useReactTable,
@@ -20,6 +21,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { FaAngleDown } from "react-icons/fa";
+
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -34,6 +44,8 @@ export function DataTable<TData, TValue>({
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );
+  const [columnVisibility, setColumnVisibility] =
+    React.useState<VisibilityState>({})
   const table = useReactTable({
     data,
     columns,
@@ -42,15 +54,18 @@ export function DataTable<TData, TValue>({
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    onColumnVisibilityChange: setColumnVisibility,
     state: {
       sorting,
       columnFilters,
+      columnVisibility
     },
   });
 
   return (
     <div className="w-full ">
-      <div className="flex items-center py-4">
+      <div className="flex justify-between items-center  py-4">
         <Input
           placeholder="Filter Questions..."
           value={
@@ -61,9 +76,60 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm"
         />
+
+
+
+        <div className="flex items-center gap-6">
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button  className="ml-auto">
+              Filter Columns <FaAngleDown className="ml-2" />
+            </Button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            {table
+              .getAllColumns()
+              .filter(
+                (column) => column.getCanHide()
+              )
+              .map((column) => {
+                return (
+                  <DropdownMenuCheckboxItem
+                    key={column.id}
+                    className="capitalize"
+                    checked={column.getIsVisible()}
+                    onCheckedChange={(value) =>
+                      column.toggleVisibility(!!value)
+                    }
+                  >
+                    {column.id}
+                  </DropdownMenuCheckboxItem>
+                )
+              })}
+          </DropdownMenuContent>
+        </DropdownMenu>
+              <div className="flex items-center justify-end space-x-2 py-4">
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.previousPage()}
+          disabled={!table.getCanPreviousPage()}
+        >
+          Previous
+        </Button>
+        <Button
+          variant="outline"
+          size="sm"
+          onClick={() => table.nextPage()}
+          disabled={!table.getCanNextPage()}
+        >
+          Next
+        </Button>
+      </div>
+      </div>
       </div>
       <div className="rounded-md  w-full relative overflow-y-scroll Flipped">
-        <Table className="border rounded-xl Flipped">
+        <Table className=" rounded-xl Flipped">
           <TableHeader >
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -116,6 +182,8 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
+
     </div>
+    // </div>
   );
 }

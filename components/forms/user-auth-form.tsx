@@ -20,7 +20,9 @@ import GoogleSignInButton from "../google-signin";
 
 const formSchema = z.object({
   email: z.string().email({ message: "Enter a valid email address" }),
-  password: z.string({ required_error: 'Passoword is required' }).min(6, { message: "Password must be at least 6 characters" }),
+  password: z
+    .string({ required_error: "Password is required" })
+    .min(6, { message: "Password must be at least 6 characters" }),
 });
 
 type UserFormValue = z.infer<typeof formSchema>;
@@ -42,19 +44,26 @@ export default function UserAuthForm() {
     const response = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      // callbackUrl:  "/dashboard",
+      // callbackUrl: callbackUrl ?? "/dashboard",
       redirect: false
     });
 
-
-
-    if (response?.error) {
-      // Handle error
-      toast.error("Wrong Email or Password");
-    } else{
-        window.location.replace('/dashboard')
+    if(response?.error){
+      toast.error("Wrong Credentials.")
+    }else{
+    window.location.replace("/dashboard");
     }
+    console.log(response)
     
+    try {
+      setLoading(true);
+      
+      // }
+    } catch (error) {
+      toast.error("Something went wrong");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -83,7 +92,7 @@ export default function UserAuthForm() {
             )}
           />
 
-    <FormField
+          <FormField
             control={form.control}
             name="password"
             render={({ field }) => (
@@ -102,8 +111,6 @@ export default function UserAuthForm() {
             )}
           />
 
-
-
           <Button disabled={loading} className="ml-auto w-full" type="submit">
             Continue With Email
           </Button>
@@ -118,13 +125,8 @@ export default function UserAuthForm() {
             Or continue with
           </span>
         </div>
-
-
-
       </div>
       <GoogleSignInButton />
-
-
     </>
   );
 }

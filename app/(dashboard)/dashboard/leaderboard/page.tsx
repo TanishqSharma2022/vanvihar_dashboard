@@ -4,6 +4,7 @@ import { LeaderBoard, columns } from "./columns";
 import { DataTable } from "./DataTable";
 
 import BreadCrumb from "@/components/ui/breadcrumb";
+import { SyncLoader } from "react-spinners";
 const breadcrumbItems = [{ title: "Leaderboard", link: "/leaderboard" }];
 
 async function getData(): Promise<LeaderBoard[]> {
@@ -41,6 +42,13 @@ export default function DemoPage() {
         </div>
       </div>
       {data && <DataTable columns={columns} data={data} />}
+      {!data &&
+      <>
+        <div className="w-full h-[80vh] flex flex-col gap-4 items-center justify-center">
+          <SyncLoader color="#214D3C" />
+          <h1 className="font-semibold text-[#214D3C]">Loading the Leaderboard....</h1>
+        </div>
+      </>}
     </div>
   );
 }
