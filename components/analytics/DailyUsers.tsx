@@ -94,8 +94,9 @@ const DailyUsers = () => {
             <BarChartAnalytics data={users} />
         }
         {users.length === 0 &&  
-        <div className="flex items-center justify-center w-full h-[200px]">
+        <div className="flex flex-col gap-4 items-center justify-center w-full h-[200px]">
             <SyncLoader color="#214D3C" />
+            <h1 className="font-semibold text-[#214D3C]">Loading the daily users...</h1>
             </div>
         }
     </>

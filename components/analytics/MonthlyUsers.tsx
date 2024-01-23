@@ -136,8 +136,10 @@ const MonthlyUsers = () => {
             <BarChartAnalytics data={monthlyUserData} />
     }
       {monthlyUserData.length === 0 &&  
-        <div className="flex items-center justify-center w-full h-[200px]">
+        <div className="flex flex-col items-center gap-4 justify-center w-full h-[200px]">
             <SyncLoader color="#214D3C" />
+            <h1 className="font-semibold text-[#214D3C]">Loading the monthly users...</h1>
+
             </div>
         }
     </>
