@@ -45,7 +45,7 @@ export function UserNav() {
           </DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => {signOut()}}>
+          <DropdownMenuItem onClick={() => {router.push('/api/auth/signout?callbackUrl=/'); router.refresh();signOut();}}>
             Log out
             <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
           </DropdownMenuItem>

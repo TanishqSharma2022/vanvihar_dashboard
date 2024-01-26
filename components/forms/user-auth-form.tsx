@@ -44,16 +44,16 @@ export default function UserAuthForm() {
     const response = await signIn("credentials", {
       email: data.email,
       password: data.password,
-      // callbackUrl: callbackUrl ?? "/dashboard",
+      callbackUrl: callbackUrl ?? "/dashboard",
       redirect: false
     });
 
-    if(response?.error){
+    if(response && response?.error){
       toast.error("Wrong Credentials.")
     }else{
-    window.location.replace("/dashboard");
+      window.location.replace("/dashboard");
     }
-    console.log(response)
+    // console.log(response)
     
     try {
       setLoading(true);

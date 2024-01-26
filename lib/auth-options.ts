@@ -2,6 +2,11 @@ import { NextAuthOptions } from "next-auth";
 import CredentialProvider from "next-auth/providers/credentials";
 import toast from "react-hot-toast";
 import GoogleProvider from "next-auth/providers/google";
+
+
+const allowedEmails = ["tanishq22@iiserb.ac.in", "vanvihar@gmail.com", "sujit@iiserb.ac.in", "moonlab314@gmail.com", "vanviharwildlifeweek@gmail.com", "tanishqsharma.lko@gmail.com"]
+
+
 export const authOptions: NextAuthOptions = {
   // secret: process.env.NEXTAUTH_SECRET,
   // session: {
@@ -12,7 +17,17 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID ?? "",
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? "",
-
+      // profile(profile) {
+      //   if (profile?.email === "tanishq22@iiserb.ac.in" ) {
+      //     return {
+      //       ...profile,
+      //       id: profile.sub as string,
+      //       email: profile.email as string,
+      //       image: profile.picture as string,
+      //       name: profile.name as string,
+      //     };
+      //   }
+      // }
 
     }),
     CredentialProvider({
@@ -47,40 +62,50 @@ export const authOptions: NextAuthOptions = {
   ],
 
   callbacks: {
-    async signIn({ user, account, profile, email, credentials }) {
-      // Do different verification for other providers that don't have `email_verified`
-   
-        // if (account?.provider === "google" && profile?.email === "tanishq22@iiserb.ac.in" ) {
-        //   return true
-        // }
-        // if (account?.provider === "google" && profile?.email === "sujit@iiserb.ac.in" ) {
-        //   return true
-        // }
-        // if (account?.provider === "google" && profile?.email === "moonlab314@gmail.com" ) {
-        //   return true
-        // }
-
-        if (account?.provider === "google" && profile?.email === "tanishq22@iiserb.ac.in") {
-          return true;
-        }
-        if (account?.provider === "google" && profile?.email === "sujit@iiserb.ac.in") {
-          return true;
-        }
-        if (account?.provider === "google" && profile?.email === "moonlab314@gmail.com") {
-          return true;
-        }
-    
-        // Allow sign-in for email/password provider if user exists
-        if (account?.provider === "credentials" && user) {
-          return true;
-        }
-    
-        // Deny sign-in for all other cases
-        return false;
-      
+    async signIn({ user, account, profile }) {
+      if (account?.provider === "google" && profile?.email) {
+        return allowedEmails.includes(profile.email);
       }
-    ,
+
+      // For other providers or credentials, allow sign-in
+      return !!user;
+    },
+  
+async redirect({ url, baseUrl }) {
+  if (url === "/api/auth/signin") {
+    return baseUrl + "/dashboard";
+  }
+  return baseUrl
+},
+
+
+
+    async jwt({token, user}) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+
+      } ,
+    async session({ session, token }) {
+      if (session.user) {
+        (session.user as { id: string }).id = token.id as string;
+      }
+      return session
+    }
   },
+
+  pages: {
+    signIn: "/dashboard", //sigin page
+    signOut: "/",
+    error: "/",
+
+  },
+  
+};
+
+
+
 
   //   async jwt(params: any) {
   //     return params.token
@@ -92,11 +117,3 @@ export const authOptions: NextAuthOptions = {
   //     return session
   //   }
   // },
-
-  pages: {
-    signIn: "/dashboard", //sigin page
-    signOut: "/",
-    error: "/",
-
-  },
-};

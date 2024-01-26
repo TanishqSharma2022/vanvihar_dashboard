@@ -14,26 +14,33 @@ export default function GoogleSignInButton() {
   const [loading, setLoading] = useState(false);
 
   async function GoogleSignIn() {
-    const response = await signIn("google", {
+    try{
+      const response = await signIn("google", {
       callbackUrl: callbackUrl ?? "/dashboard",
-      redirect: false,
     });
-
-    if (response?.error) {
-      toast.error("Something went wrong");
-      window.location.replace("/");
-    }
-    if (error === "AccessDenied") {
-      window.location.replace("/");
-
-      toast.error("Access Denied");
-    }
+  
 
     
-    try {
+
+    // if (error === "AccessDenied") {
+    //   window.location.replace("/");
+
+    //   toast.error("Access Denied");
+    // }
+    if (!response) {
+      console.error("Google sign-in failed");
+      // Handle the error or show a message to the user
+    } else {
+      // Successful sign-in, response contains session information
+      console.log("Google sign-in successful", response);
+      toast.success("Sign in successful.");
+      // Optionally, you can redirect to the dashboard or handle the success as needed
+    }
+    
+    
       setLoading(true);
       
-    } catch (error) {
+ } catch (error) {
       toast.error("Something went wrong");
     } finally {
       setLoading(false);
