@@ -46,7 +46,7 @@ const { data: session} = useSession();
             src={"/image.png"}
             className="h-12 w-12 rounded-full shadow-lg bg-[#d4f7e5] "
           />
-          VAN VIHAR
+          VAN VIHAR QUIZ DASHBOARD
         </div>
 
         <div className="relative z-20 mt-auto">
@@ -54,7 +54,6 @@ const { data: session} = useSession();
             <p className="text-lg">
               &ldquo;This dashboard is developed by Team ThunderByte&rdquo;
             </p>
-            <footer className="text-sm">Tanishq Sharma</footer>
           </blockquote>
         </div>
       </div>

@@ -71,7 +71,7 @@ export default function UserAuthForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="space-y-2 w-full"
+          className="space-y-6 w-full"
         >
           <FormField
             control={form.control}
@@ -81,6 +81,7 @@ export default function UserAuthForm() {
                 <FormLabel>Email</FormLabel>
                 <FormControl>
                   <Input
+                  className="min-w-[350px]"
                     type="email"
                     placeholder="Enter your email..."
                     disabled={loading}
@@ -100,6 +101,8 @@ export default function UserAuthForm() {
                 <FormLabel>Password</FormLabel>
                 <FormControl>
                   <Input
+          className="min-w-[350px]"
+
                     type="password"
                     placeholder="Enter your password..."
                     disabled={loading}
@@ -111,7 +114,7 @@ export default function UserAuthForm() {
             )}
           />
 
-          <Button disabled={loading} className="ml-auto w-full" type="submit">
+          <Button disabled={loading} className="bg-[#214d3c] w-full mt-12" type="submit">
             Continue With Email
           </Button>
         </form>
