@@ -11,11 +11,25 @@ async function getData(): Promise<LeaderBoard[]> {
   // https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizResult/getLeaderBoard
   // Fetch data from your API here.
   const response = await fetch(
-    "https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizResult/getLeaderBoard"
+    "https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizResult/getAllLeaderBoard"
   );
   const data = await response.json();
 
-  return data.data.reverse();
+console.log(data.data);
+  // SOrting data through date...
+  const sortedData = data.data.sort((a:any, b:any) => {
+    const dateA:any = new Date(a.createdAt);
+    const dateB:any = new Date(b.createdAt);
+  
+    // Compare the dates in descending order
+    return dateB - dateA;
+  });
+  
+
+
+  // console.log(data.data);
+
+  return sortedData;
   // ...
 }
 

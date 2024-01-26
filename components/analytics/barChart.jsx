@@ -55,29 +55,29 @@ import { Bar, BarChart, Label, Legend, ResponsiveContainer, Tooltip, XAxis, YAxi
 
 export function BarChartAnalytics({data}) {
   return (
-    <ResponsiveContainer width="100%" height={350}>
-      <BarChart data={data} height={400}>
+    <ResponsiveContainer width="100%" height={300} >
+      <BarChart data={data} height={300}>
         <XAxis
           dataKey={Object.keys(data[0])[0]}
-          stroke="#888888"
+          stroke="#5C8374"
           fontSize={12}
           tickLine={false}
           axisLine={true}
         >
+          <Label value={Object.keys(data[0])[0]} position="bottom" />
+
           </XAxis>
         <YAxis
-          stroke="#888888"
+          stroke="#5C8374"
           fontSize={12}
           tickLine={false}
           axisLine={false}
           tickFormatter={(value) => `${value}`}
         >
-          <Label value={Object.keys(data[0])[0]} offset={-15} angle={-90} position="left" />
 
         </YAxis>
         <Tooltip />
-        {/* <Legend /> */}
-        <Bar dataKey="users" fill="#214D3C" radius={[4, 4, 0, 0]} />
+        <Bar dataKey="users" fill="#5C8374" radius={[4, 4, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );

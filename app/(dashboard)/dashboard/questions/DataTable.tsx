@@ -182,7 +182,7 @@ export function DataTable<TData, TValue>({
                   {row.getVisibleCells().map((cell) => (
                     <TableCell
                       key={cell.id}
-                      className=" md:max-w-[300px]  md:min-w-[250px] break-words"
+                      className="min-w-[200px] max-w-[300px] break-words"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

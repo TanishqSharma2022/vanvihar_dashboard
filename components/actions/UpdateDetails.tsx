@@ -21,6 +21,9 @@ import { useRouter } from "next/navigation";
 import { ScrollArea } from "../ui/scroll-area";
 import { Separator } from "../ui/separator";
 import { options } from "@/constants/data";
+import { SelectContent, SelectItem, SelectTrigger, SelectValue, Select_shad } from "../ui/select";
+import { Select } from "@radix-ui/react-select";
+import { Checkbox } from "../ui/checkbox";
 
 const formSchema = z.object({
   questionCount: z.coerce.number(),
@@ -28,6 +31,11 @@ const formSchema = z.object({
   marksMedium: z.coerce.number(),
   marksHard: z.coerce.number(),
   tags: z.array(z.string()),
+  isGeofenceEnabled: z.boolean(),
+  range: z.coerce.number(),
+  timeLimit: z.coerce.number(),
+  limitLatitude: z.coerce.number(),
+  limitLongitude: z.coerce.number()
 });
 
 interface QuestionDetails {
@@ -36,6 +44,11 @@ interface QuestionDetails {
     marksMedium: number,
     marksHard: number,
     tags: string[],
+    isGeofenceEnabled: boolean, 
+    range: number, 
+    timeLimit: number,
+    limitLatitude: number, 
+    limitLongitude: number
 }
 
 const tags = [
@@ -86,6 +99,9 @@ const tags = [
 function UpdateQuestionDetails() {
   const [loading, setLoading] = useState(false);
 
+  const [geofence, setGeofence] = useState(false);
+  
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -96,7 +112,13 @@ function UpdateQuestionDetails() {
     marksMedium: 0,
     marksHard: 0,
     tags: [""],
+    isGeofenceEnabled: false,
+    range: 0,
+    timeLimit: 0,
+    limitLatitude: 0,
+    limitLongitude: 0,
   });
+
   useEffect(() => {
     async function getQuestion() {
       try {
@@ -106,13 +128,18 @@ function UpdateQuestionDetails() {
 
         const data = await response.json();
         setQues(data.data);
-
+      console.log(data)
         const defaultValues = {
           questionCount: data.data.questionCount || 0,
           marksEasy: data.data.marksEasy || 0,
           marksMedium: data.data.marksMedium || 0,
           marksHard: data.data.marksHard || 0,
           tags: data.data.tags.length !== 0 ?  data.data.tags : tags,
+          isGeofenceEnabled: data.data.isGeofenceEnabled || false,
+          range: data.data.range || 0,
+          timeLimit: data.data.timeLimit || 0,
+          limitLatitude: data.data.limitLatitude || 0,
+          limitLongitude: data.data.limitLongitude || 0,
         };
 
         form.reset(defaultValues);
@@ -122,7 +149,7 @@ function UpdateQuestionDetails() {
       }
     }
     getQuestion();
-  }, [form]);
+  }, [ form]);
 
   const [hasAttachment, setHasAttachment] = React.useState(false);
   const [isText, setIsText] = React.useState(true)
@@ -261,39 +288,145 @@ function UpdateQuestionDetails() {
                   render={({ field }) => (
                     <div>
                       <Label>Tags</Label>
-                      {/* <MultiSelect
+                      <MultiSelect
                         options={options}
-                        value={(field.value || []).map((value) => ({
-                          label: value,
-                          value: value,
-                        }))}
-                        // onChange={(selected: string[]) => {
-                        //     const selectedValues = selected.map((item) => console.log(item));
-                        //     field.onChange(selectedValues);
-                        //   }}
-                        onChange={(selected: string[]) => {
-                          // Trigger field-level onChange directly with the selected values
-                          field.onChange(selected);
+                        value={(field.value || []).map((value) => ({ label: value, value }))}
+                        onChange={(selected: Array<{ label: string; value: string }>) => {
+                            const selectedValues = selected.map((item) => item.value);
+                            field.onChange(selectedValues);
                         }}
                         labelledBy="Select"
-                      /> */}
-                      <MultiSelect
-            options={options}
-            value={(field.value || []).map((value) => ({ label: value, value }))}
-            onChange={(selected: Array<{ label: string; value: string }>) => {
-                const selectedValues = selected.map((item) => item.value);
-                field.onChange(selectedValues);
-            }}
-            labelledBy="Select"
-            />
+                        />
+
+                   
 
                     </div>
                   )}
                 />
 
-              
+              <FormField
+                    control={form.control}
+                    name="timeLimit"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>
+                          <Label htmlFor="timeLimit">Time Limit</Label>
+                        </FormLabel>
+                        <FormControl>
+                          <Input type="text" placeholder="0" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+
+
+
               </div>
             </div>
+
+         
+
+
+
+
+
+
+
+
+
+
+            <div className="w-full py-2">
+              <Separator className="my-2" />
+              <h1 className="font-bold text-xl">GEOFENCING DETAILS</h1>
+              <div className="md:grid md:grid-cols-1 gap-6 mt-4">
+              <FormField
+                      control={form.control}
+                      name="isGeofenceEnabled"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormControl>
+                            <Checkbox
+                              onCheckedChange={field.onChange}
+                              checked={field.value}
+                              onClick={() => setHasAttachment(!hasAttachment)}
+                            />
+                          </FormControl>
+                          <FormLabel>
+                            <Label htmlFor="question" className="px-4">
+                              Enable Geofencing
+                            </Label>
+                          </FormLabel>
+
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+
+                  {hasAttachment && 
+
+                  <div className=" grid md:grid-cols-3 gap-6">
+                          <FormField
+                                      control={form.control}
+                                      name="range"
+                                      render={({ field }) => (
+                                        <FormItem>
+                                          <FormLabel>
+                                            <Label htmlFor="range">Range</Label>
+                                          </FormLabel>
+                                          <FormControl>
+                                            <Input type="text" placeholder="0" {...field} />
+                                          </FormControl>
+                                          <FormMessage />
+                                        </FormItem>
+                                      )}
+                                    />
+
+
+                                    <FormField
+                                    control={form.control}
+                                    name="limitLatitude"
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        <FormLabel>
+                                          <Label htmlFor="limitLatitude">Center Latitude</Label>
+                                        </FormLabel>
+                                        <FormControl>
+                                          <Input type="number" placeholder="0" {...field} />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+
+                                  <FormField
+                                  control={form.control}
+                                  name="limitLongitude"
+                                  render={({ field }) => (
+                                    <FormItem>
+                                      <FormLabel>
+                                        <Label htmlFor="limitLongitude">Center Longitude</Label>
+                                      </FormLabel>
+                                      <FormControl>
+                                        <Input type="number" placeholder="0" {...field} />
+                                      </FormControl>
+                                      <FormMessage />
+                                    </FormItem>
+                                  )}
+                                />
+
+                                    </div>
+                  }
+
+              </div>
+            </div>
+
+
+
+
+
+
+            
 
             <div className="col-span-3 my-2">
               <Button className="" type="submit" disabled={loading}>

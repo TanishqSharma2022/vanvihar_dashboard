@@ -35,7 +35,7 @@ const formSchema = z.object({
   question: z.string().min(2, { message: "At least 2 characters" }),
   correctAnswer: z.string().min(2, { message: "At least 2 characters" }),
   answerChoices: z.array(z.string()).min(2, { message: "At least 2 options" }),
-  hasAttachment: z.boolean().default(false).optional(),
+  hasAttachment: z.boolean(),
   attachmentType: z.string(),
   descriptionAttachment: z
     .string()
@@ -90,6 +90,8 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
 
         const data = await response.json();
         setQues(data.data);
+        console.log(data.data)
+        setHasAttachment(data.data.hasAttachment);
 
         const defaultValues = {
           question: data.data.question || "",
@@ -120,40 +122,41 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
     
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    try {
-      setLoading(true);
-      const response = await fetch(
-        `https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizQuestion/updateQuestion?id=${params.id}`,
-        {
-          method: "PATCH",
+    console.log(values)
+    // try {
+    //   setLoading(true);
+    //   const response = await fetch(
+    //     `https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizQuestion/updateQuestion?id=${params.id}`,
+    //     {
+    //       method: "PATCH",
           
-          body: JSON.stringify({"data":{
-            question: values.question,
-            correctAnswer: values.correctAnswer,
-            answerChoices: values.answerChoices,
-            hasAttachment: values.hasAttachment,
-            attachmentType: values.attachmentType,
-            descriptionAttachment: values.descriptionAttachment,
-            attachment: values.attachment,
-            answerType: values.answerType,
-            answerDescription: values.answerDescription,
-            difficulty: values.difficulty,
-            tags: values.tags,
-          }}),
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error adding question:", error);
-      toast.error("Error Uploading Question");
-    } finally {
-      setLoading(false);
-      toast.success("Question updated successfully...");
-    //   window.location.reload();
-      router.push("/dashboard/questions");
-    }
+    //       body: JSON.stringify({"data":{
+    //         question: values.question,
+    //         correctAnswer: values.correctAnswer,
+    //         answerChoices: values.answerChoices,
+    //         hasAttachment: values.hasAttachment,
+    //         attachmentType: values.attachmentType,
+    //         descriptionAttachment: values.descriptionAttachment,
+    //         attachment: values.attachment,
+    //         answerType: values.answerType,
+    //         answerDescription: values.answerDescription,
+    //         difficulty: values.difficulty,
+    //         tags: values.tags,
+    //       }}),
+    //       headers: {
+    //         "Content-type": "application/json",
+    //       },
+    //     }
+    //   );
+    // } catch (error) {
+    //   console.error("Error adding question:", error);
+    //   toast.error("Error Uploading Question");
+    // } finally {
+    //   setLoading(false);
+    //   toast.success("Question updated successfully...");
+    // //   window.location.reload();
+    //   router.push("/dashboard/questions");
+    // }
   };
 
   return (
@@ -259,7 +262,7 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
                   {/* ATTACHMENTS */}
                   <div className="grid gap-3">
                     
-                   {!isText &&  
+                   {/* {hasAttachment &&   */}
                    <>
                    
                     <FormField
@@ -339,7 +342,7 @@ function UpdateQuestion({ params }: { params: { id: string } }) {
                       </>
                     )}
                     </>
-                    }
+                    {/* // } */}
                   </div>
                 </div>
               </div>

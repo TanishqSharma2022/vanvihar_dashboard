@@ -442,12 +442,14 @@ const App = () => {
       <div className="md:p-6 grid gap-4 grid-cols-1 md:grid-cols-2 lg:grid-cols-7 items-top  ">
         <Card className="col-span-3 shadow-lg">
           <CardHeader>
-            <CardTitle>Best Scorers</CardTitle>
+            <CardTitle>
+              Best Scorers
+            </CardTitle>
           </CardHeader>
 
           <BestScorers />
         </Card>
-        <Card className="col-span-4 shadow-lg h-[500px]">
+        <Card className="col-span-4 shadow-lg ">
           <CardHeader>
             <CardTitle>Monthly Users</CardTitle>
           </CardHeader>
