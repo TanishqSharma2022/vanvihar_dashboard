@@ -1,7 +1,7 @@
 "use client";
 import * as React from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import * as z from "zod";
 import {
   Form,
@@ -49,7 +49,6 @@ const formSchema = z.object({
 });
 
 function AddQuestion() {
-  
   const [loading, setLoading] = useState(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
@@ -71,41 +70,52 @@ function AddQuestion() {
 
   const [hasAttachment, setHasAttachment] = React.useState(false);
 
+  const optionChoices = useWatch({
+    control: form.control,
+    name: "answerChoices",
+    defaultValue: ["", "", "", ""], // Provide default values if needed
+  });
+
+  React.useEffect(() => {
+    // You can log the answerChoices array here to see the values
+    console.log("Answer Choices:", optionChoices);
+  }, [optionChoices]);
+
   // 2. Define a submit handler.
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    // console.log(JSON.stringify(values));
-    try {
-      setLoading(true);
-      const response = await fetch(
-        "https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizQuestion/add",
-        {
-          method: "POST",
-          body: JSON.stringify({
-            question: values.question,
-            correctAnswer: values.correctAnswer,
-            answerChoices: values.answerChoices,
-            hasAttachment: values.hasAttachment,
-            attachmentType: values.attachmentType,
-            descriptionAttachment: values.descriptionAttachment,
-            attachment: values.attachment,
-            answerType: values.answerType,
-            answerDescription: values.answerDescription,
-            difficulty: values.difficulty,
-            tags: values.tags
-          }),
-          headers: {
-            "Content-type": "application/json",
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error adding question:", error);
-      toast.error("Error Uploading Question");
-    } finally {
-      setLoading(false);
-      toast.success("Question added successfully");
-      window.location.reload();
-    }
+    console.log(values);
+    // try {
+    //   setLoading(true);
+    //   const response = await fetch(
+    //     "https://vanviharquiz-gpaty.ondigitalocean.app/api/v1/quizQuestion/add",
+    //     {
+    //       method: "POST",
+    //       body: JSON.stringify({
+    //         question: values.question,
+    //         correctAnswer: values.correctAnswer,
+    //         answerChoices: values.answerChoices,
+    //         hasAttachment: values.hasAttachment,
+    //         attachmentType: values.attachmentType,
+    //         descriptionAttachment: values.descriptionAttachment,
+    //         attachment: values.attachment,
+    //         answerType: values.answerType,
+    //         answerDescription: values.answerDescription,
+    //         difficulty: values.difficulty,
+    //         tags: values.tags
+    //       }),
+    //       headers: {
+    //         "Content-type": "application/json",
+    //       },
+    //     }
+    //   );
+    // } catch (error) {
+    //   console.error("Error adding question:", error);
+    //   toast.error("Error Uploading Question");
+    // } finally {
+    //   setLoading(false);
+    //   toast.success("Question added successfully");
+    //   window.location.reload();
+    // }
   };
 
   return (
@@ -119,7 +129,7 @@ function AddQuestion() {
               <Separator className="my-4" />
 
               <div className="flex flex-col md:flex-row gap-6">
-                <div className="grid grid-cols-1 ">
+                <div className="grid grid-cols-1  ">
                   {/* QUESTION */}
                   <FormField
                     control={form.control}
@@ -130,7 +140,10 @@ function AddQuestion() {
                           <Label htmlFor="question">Question</Label>
                         </FormLabel>
                         <FormControl>
-                          <Input placeholder="Question" {...field} />
+                          <Input
+                            placeholder="Enter Question here..."
+                            {...field}
+                          />
                         </FormControl>
 
                         <FormMessage />
@@ -170,7 +183,7 @@ function AddQuestion() {
                 <Separator orientation="vertical" className="bg-red-400 my-4" />
 
                 <div className="grid grid-cols-1 gap-4 ">
-                  {[0, 1, 2, 3].map((index) => (
+                  {optionChoices.map((name, index) => (
                     <FormField
                       key={index}
                       control={form.control}
@@ -181,7 +194,9 @@ function AddQuestion() {
                           <Input
                             placeholder="Enter Text / Image URL"
                             value={field.value}
-                            onChange={(value) => {field.onChange(value);}}
+                            onChange={(value) => {
+                              field.onChange(value);
+                            }}
                           />
                         </div>
                       )}
@@ -191,7 +206,7 @@ function AddQuestion() {
 
                 <div className="grid grid-cols-1 gap-6 ">
                   {/* CORRECT ANSWER */}
-                  <FormField
+                  {/* <FormField
                     control={form.control}
                     name="correctAnswer"
                     render={({ field }) => (
@@ -205,50 +220,33 @@ function AddQuestion() {
                         <FormMessage />
                       </FormItem>
                     )}
-                  />
+                  /> */}
 
-{/* <FormField
-        control={form.control}
-        name="correctAnswer"
-        render={({ field }) => (
-          <div>
-            <FormLabel>
-              <Label htmlFor="correctAnswer">Correct Answer</Label>
-            </FormLabel>
-            <FormControl>
-              <Select
-                {...field}
-                options={answerArray.map((option, index) => ({
-                  label: option,
-                  value: option,
-                }))}
-                isSearchable={false}
-              />
-            </FormControl>
-          </div>
-        )}
-      /> */}
-
-                  {/* <FormField
+                  <FormField
                     control={form.control}
                     name="correctAnswer"
                     render={({ field }) => (
-                      <div>
+                      <FormItem className="flex flex-col">
                         <FormLabel>
                           <Label htmlFor="correctAnswer">Correct Answer</Label>
                         </FormLabel>
                         <FormControl>
-                        <Select
-                        {...field}
-                        options={answerArray}
-                        isSearchable={false} // if you don't want a searchable dropdown
-                      />
-
+                          <select
+                            {...field}
+                            className="border p-2 max-w-[250px] rounded-lg text-sm"
+                          >
+                            <option value="">Select Correct Answer</option>
+                            {optionChoices.map((value, index) => (
+                              <option key={index} value={value}>
+                                Option {index + 1}
+                              </option>
+                            ))}
+                          </select>
                         </FormControl>
                         <FormMessage />
-                      </div>
+                      </FormItem>
                     )}
-                  /> */}
+                  />
 
                   {/* ATTACHMENTS */}
                   <div className="grid gap-3">
@@ -265,7 +263,7 @@ function AddQuestion() {
                             />
                           </FormControl>
                           <FormLabel>
-                            <Label htmlFor="question" className="px-4">
+                            <Label htmlFor="hasAttachment" className="px-4">
                               Does this have an Attachment?
                             </Label>
                           </FormLabel>
@@ -283,12 +281,12 @@ function AddQuestion() {
                             <FormItem>
                               <FormLabel>
                                 <Label htmlFor="attachment">
-                                  Answer Image Link
+                                  Question Attachment Link
                                 </Label>
                               </FormLabel>
                               <FormControl>
                                 <Input
-                                  placeholder="Answer Image URL"
+                                  placeholder="Question Attachment URL"
                                   {...field}
                                 />
                               </FormControl>
@@ -337,7 +335,7 @@ function AddQuestion() {
             <div className="w-full ">
               <h1 className="font-bold text-xl">ANSWER</h1>
               <Separator className="my-4" />
-              <div className="md:grid md:grid-cols-3 gap-6">
+              <div className="flex flex-col md:flex-row gap-12">
                 <FormField
                   control={form.control}
                   name="descriptionAttachment"
@@ -349,7 +347,7 @@ function AddQuestion() {
                         </Label>
                       </FormLabel>
                       <FormControl>
-                        <Input placeholder="Image URL" {...field} />
+                        <Input placeholder="Description Image URL" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -390,6 +388,7 @@ function AddQuestion() {
                     <div>
                       <Label>Tags</Label>
                       <MultiSelect
+                        className="max-w-[250px] "
                         options={options}
                         // value={field.value.map((value) => ({
                         //   label: value,

@@ -15,7 +15,6 @@ async function getData(): Promise<LeaderBoard[]> {
   );
   const data = await response.json();
 
-console.log(data.data);
   // SOrting data through date...
   const sortedData = data.data.sort((a:any, b:any) => {
     const dateA:any = new Date(a.createdAt);
